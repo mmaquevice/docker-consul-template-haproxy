@@ -1,10 +1,10 @@
 FROM ubuntu:14.04
 
+# HAPROXY
 ENV HAPROXY_MAJOR 1.6
 ENV HAPROXY_VERSION 1.6.2
 ENV HAPROXY_MD5 d0ebd3d123191a8136e2e5eb8aaff039
 
-# see http://sources.debian.net/src/haproxy/1.5.8-1/debian/rules/ for some helpful navigation of the possible "make" arguments
 RUN buildDeps='curl gcc libc6-dev libpcre3-dev libssl-dev make' \
 	&& set -x \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends && rm -rf /var/lib/apt/lists/* \
@@ -32,11 +32,14 @@ ADD hap.sh /hap.sh
 RUN chmod u+x /hap.sh
 RUN useradd haproxy -s /sbin/nologin
 
+# CONSUL TEMPLATE
+ENV CONSUL_TEMPLATE_VERSION 0.11.1
+
 RUN apt-get update && apt-get install -y curl && \
-  curl -L "https://github.com/hashicorp/consul-template/releases/download/v0.11.1/consul-template_0.11.1_linux_amd64.tar.gz" -o /tmp/consul-template && \
+  curl -L "https://releases.hashicorp.com/consul-template/${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip" -o /tmp/consul-template && \
   cd /tmp && \
   tar -xf consul-template && \
-  cp consul-template_0.11.1_linux_amd64/consul-template /usr/local/bin/consul-template && \
+  cp consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64/consul-template /usr/local/bin/consul-template && \
   chmod a+x /usr/local/bin/consul-template
 
 ADD haproxy.template /etc/haproxy/haproxy.template
