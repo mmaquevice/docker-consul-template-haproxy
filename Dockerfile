@@ -35,7 +35,7 @@ RUN chmod u+x /hap.sh
 RUN useradd haproxy -s /sbin/nologin
 
 
-RUN curl -L -o /tmp/consul-template https://github.com/hashicorp/consul-template/releases/download/v0.7.0/consul-template_0.7.0_linux_amd64.tar.gz && \
+RUN curl -L "https://github.com/hashicorp/consul-template/releases/download/v0.7.0/consul-template_0.7.0_linux_amd64.tar.gz" -o /tmp/consul-template && \
   cd /tmp && \
   tar -xf consul-template && \
   cp consul-template_0.7.0_linux_amd64/consul-template /usr/local/bin/consul-template && \
