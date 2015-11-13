@@ -15,31 +15,6 @@ This repository contains a scripts for creating image with haproxy and consul-te
 
 ## Usage
 
-- Simple
-
 ```
-docker pull shayashibara/docker-consul-template-haproxy
-docker run -d shayashibara/docker-consul-template-haproxy
+docker run -d -p 80:80 -e "CONSUL_PORT_8500_TCP_ADDR=10.133.84.127" -e "CONSUL_PORT_8500_TCP_PORT=8500" --name hap mmaquevice/consul-template-haproxy:1.0
 ```
-
-- Link to consul (in docker)
-
-```
-docker run -p 8400:8400 -p 8500:8500 -p 8600:53/udp --name consul progrium/consul -server -bootstrap
-docker run -d --link consul:consul shayashibara/docker-consul-template-haproxy
-```
-
-- Link to consul (in outside)
-
-```
-docker run -d -e "CONSUL_PORT_8500_TCP_ADDR=10.0.0.1" -e "CONSUL_PORT_8500_TCP_PORT=8500" shayashibara/docker-consul-template-haproxy
-```
-
-## vars
-
-You can customize container by passing environment variables.
-
-|variable|value|
-|:--|:--|
-|CONSUL_PORT_8500_TCP_ADDR| default: `172.17.42.1` |
-|CONSUL_PORT_8500_TCP_PORT| default: `8500` |
