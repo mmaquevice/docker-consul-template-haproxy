@@ -1,7 +1,5 @@
 FROM ubuntu:14.04
 
-RUN apt-get update && apt-get install -y curl
-
 ENV HAPROXY_MAJOR 1.6
 ENV HAPROXY_VERSION 1.6.2
 ENV HAPROXY_MD5 d0ebd3d123191a8136e2e5eb8aaff039
@@ -35,7 +33,8 @@ RUN chmod u+x /hap.sh
 RUN useradd haproxy -s /sbin/nologin
 
 
-RUN curl -L "https://github.com/hashicorp/consul-template/releases/download/v0.7.0/consul-template_0.7.0_linux_amd64.tar.gz" -o /tmp/consul-template && \
+RUN apt-get install -y curl && \
+  curl -L "https://github.com/hashicorp/consul-template/releases/download/v0.7.0/consul-template_0.7.0_linux_amd64.tar.gz" -o /tmp/consul-template && \
   cd /tmp && \
   tar -xf consul-template && \
   cp consul-template_0.7.0_linux_amd64/consul-template /usr/local/bin/consul-template && \
