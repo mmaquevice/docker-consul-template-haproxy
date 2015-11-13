@@ -6,15 +6,17 @@ DockerHub Repository: https://registry.hub.docker.com/u/shayashibara/docker-cons
 
 ## Overview
 
-This repository contains a scripts for creating image with haproxy and consul-template.
+This repository contains a Dockerfile to create an ubuntu:14.04 based image with : 
+- haproxy 1.6.2
+- consul-template 0.11.1
 
 ## Requirements
 
-- Docker (Tested on 1.4.1)
-- Consul (Tested on 0.5.0)
+- Docker (Tested on 1.9.0)
+- Consul (Tested on 0.11.1)
 
 ## Usage
 
 ```
-docker run -d -p 80:80 -e "CONSUL_PORT_8500_TCP_ADDR=10.133.84.127" -e "CONSUL_PORT_8500_TCP_PORT=8500" --name hap mmaquevice/consul-template-haproxy:1.0
+docker run -d -p [FRONT_END_PORT]:[FRONT_END_PORT] -e "CONSUL_PORT_8500_TCP_ADDR=[CONSUL_IP]" -e "CONSUL_PORT_8500_TCP_PORT=[CONSUL_PORT]" --name hap mmaquevice/consul-template-haproxy
 ```
