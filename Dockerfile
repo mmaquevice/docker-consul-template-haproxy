@@ -23,8 +23,7 @@ RUN buildDeps='curl gcc libc6-dev libpcre3-dev libssl-dev make' \
 	&& mkdir -p /usr/local/etc/haproxy \
 	&& cp -R /usr/src/haproxy/examples/errorfiles /usr/local/etc/haproxy/errors \
 	&& rm -rf /usr/src/haproxy \
-	&& apt-get purge -y --auto-remove $buildDeps \
-	&& apt-get install -y hatop
+	&& apt-get purge -y --auto-remove $buildDeps
 
 ADD haproxy.cfg /etc/haproxy/haproxy.cfg
 ADD startup.sh /startup.sh
@@ -32,6 +31,8 @@ RUN chmod u+x /startup.sh
 ADD hap.sh /hap.sh
 RUN chmod u+x /hap.sh
 RUN useradd haproxy -s /sbin/nologin
+
+RUN apt-get update && apt-get install -y hatop
 
 # CONSUL TEMPLATE
 ENV CONSUL_TEMPLATE_VERSION 0.11.1
