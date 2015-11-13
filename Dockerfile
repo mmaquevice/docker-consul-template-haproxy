@@ -35,7 +35,7 @@ RUN useradd haproxy -s /sbin/nologin
 # CONSUL TEMPLATE
 ENV CONSUL_TEMPLATE_VERSION 0.11.1
 
-RUN apt-get update && apt-get install -y curl && \
+RUN apt-get update && apt-get install -y curl unzip && \
   curl -L "https://releases.hashicorp.com/consul-template/${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip" -o /tmp/consul-template && \
   cd /tmp && \
   unzip consul-template && \
