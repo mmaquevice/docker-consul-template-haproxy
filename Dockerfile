@@ -32,11 +32,13 @@ ADD hap.sh /hap.sh
 RUN chmod u+x /hap.sh
 RUN useradd haproxy -s /sbin/nologin
 
+ENV CONSUL_TEMPLATE_VERSION 0.11.1
+
 RUN apt-get update && apt-get install -y curl && \
-  curl -L "https://github.com/hashicorp/consul-template/releases/download/v0.7.0/consul-template_0.7.0_linux_amd64.tar.gz" -o /tmp/consul-template && \
+  curl -L "https://github.com/hashicorp/consul-template/releases/download/v${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.tar.gz" -o /tmp/consul-template && \
   cd /tmp && \
   tar -xf consul-template && \
-  cp consul-template_0.7.0_linux_amd64/consul-template /usr/local/bin/consul-template && \
+  cp consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64/consul-template /usr/local/bin/consul-template && \
   chmod a+x /usr/local/bin/consul-template
 
 ADD haproxy.template /etc/haproxy/haproxy.template
