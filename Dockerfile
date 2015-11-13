@@ -39,7 +39,7 @@ RUN apt-get update && apt-get install -y curl unzip && \
   curl -L "https://releases.hashicorp.com/consul-template/${CONSUL_TEMPLATE_VERSION}/consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64.zip" -o /tmp/consul-template && \
   cd /tmp && \
   unzip consul-template && \
-  cp consul-template_${CONSUL_TEMPLATE_VERSION}_linux_amd64/consul-template /usr/local/bin/consul-template && \
+  cp consul-template /usr/local/bin/consul-template && \
   chmod a+x /usr/local/bin/consul-template
 
 ADD haproxy.template /etc/haproxy/haproxy.template
