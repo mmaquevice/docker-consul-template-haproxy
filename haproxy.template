@@ -31,5 +31,5 @@ frontend web-app
 backend default
   balance roundrobin
   {{range service "tomcat"}}
-    server {{.Node}}-{{.Name}}-{{index}} {{.Address}}:{{.Port}} check inter 5000 rise 5 fall 3
+    server {{.Node}}-{{.Name}}-{{$index}} {{.Address}}:{{.Port}} check inter 5000 rise 5 fall 3
   {{else}}server 127.0.0.1:65535{{end}}
