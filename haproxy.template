@@ -30,5 +30,5 @@ frontend web-app
 backend default
   balance roundrobin
   {{range service "tomcat"}}
-    server {{.Address}}:{{.Port}}
+    server {{.Id}} {{.Address}}:{{.Port}}
   {{else}}server 127.0.0.1:65535{{end}}
