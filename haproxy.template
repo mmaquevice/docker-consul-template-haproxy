@@ -26,9 +26,9 @@ listen stats
 
 frontend web-app
   bind *:80
-  default_backend default
+  default_backend servers_front
 
-backend default
+backend servers_front
   balance roundrobin
   {{range service "tomcat"}}
     server {{.Node}}-{{.Name}} {{.Address}}:{{.Port}} check inter 5000 rise 5 fall 3

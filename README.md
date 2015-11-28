@@ -19,4 +19,6 @@ This repository contains a Dockerfile to create an ubuntu:14.04 based image with
 
 ```
 docker run -d -p [FRONT_END_PORT]:[FRONT_END_PORT] -e "CONSUL_PORT_8500_TCP_ADDR=[CONSUL_IP]" -e "CONSUL_PORT_8500_TCP_PORT=[CONSUL_PORT]" --name hap mmaquevice/consul-template-haproxy
+
+docker run -d --name tomcat-n1 -e SERVICE_NAME=tomcat -e SERVICE_TAGS=java -P tomcat:6
 ```
