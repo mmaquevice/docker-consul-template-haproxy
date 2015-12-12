@@ -1,35 +1,35 @@
 global
-  stats socket /tmp/haproxy level admin
-  log 127.0.0.1 local0
-  log 127.0.0.1 local1 notice
-  user haproxy
-  group haproxy
+    stats socket /tmp/haproxy level admin
+    log 127.0.0.1 local0
+    log 127.0.0.1 local1 notice
+    user haproxy
+    group haproxy
 
 defaults
-  log global
-  mode http
-  option httplog
-  option dontlognull
-  balance roundrobin
-  timeout connect 5000
-  timeout client 50000
-  timeout server 50000
+    log global
+    mode http
+    option httplog
+    option dontlognull
+    balance roundrobin
+    timeout connect 5000
+    timeout client 50000
+    timeout server 50000
 
 listen stats
-  bind *:8001
-  option httpclose
-  option forwardfor
-  stats enable
-  stats uri /haproxy?stats
-  stats auth admin:123123q
-  stats realm HAProxy\ Statistics
+    bind *:8001
+    option httpclose
+    option forwardfor
+    stats enable
+    stats uri /haproxy?stats
+    stats auth admin:123123q
+    stats realm HAProxy\ Statistics
 
 frontend web-app
-  bind *:80
-  default_backend servers_front
+    bind *:80
+    default_backend servers_front
 
 backend servers_front
-  balance roundrobin
+    balance roundrobin
   {{range service "tomcat"}}
     server {{.Node}}-{{.Name}} {{.Address}}:{{.Port}} check inter 5000 rise 5 fall 3
   {{else}}server server_name 127.0.0.1:65535{{end}}
