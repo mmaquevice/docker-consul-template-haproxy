@@ -34,12 +34,10 @@ backend servers_front
     server {{.Node}}-{{.Name}} {{.Address}}:{{.Port}} check inter 5000 rise 5 fall 3
   {{else}}server server_name 127.0.0.1:65535{{end}}
 
-frontend mariadb
-  bind *:3306
-  default_backend servers_mariadb
-
-backend servers_mariadb
-  balance roundrobin
+listen mariadb-cluster
+    bind *:3306
+    mode tcp
+    balance roundrobin
   {{range service "mariadb"}}
     server {{.Node}}-{{.Name}} {{.Address}}:{{.Port}} check inter 5000 rise 5 fall 3
   {{else}}server server_name 127.0.0.1:65535{{end}}
