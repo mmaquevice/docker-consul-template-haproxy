@@ -24,11 +24,9 @@ listen stats
     stats auth admin:123123q
     stats realm HAProxy\ Statistics
 
-frontend delicar-api
+listen delicar-api
     bind *:9000
-    default_backend servers_api
-
-backend servers_api
+    mode tcp
     balance roundrobin
   {{range service "delicar-back"}}
     server {{.Node}}-{{.Name}} {{.Address}}:{{.Port}} check inter 5000 rise 5 fall 3
